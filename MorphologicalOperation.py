@@ -49,3 +49,24 @@ plt.show()
 # cv2.imwrite("gradient.jpg",gradient)
 # cv2.imwrite("tophat.jpg",tophat)
 # cv2.imwrite("blackhat.jpg",blackhat)
+
+# morph_operations.py
+def display_erosion():
+    cv2.imshow('Erosion',erosion)
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
+
+def display_dilation():
+    cv2.imshow('Dilation',dilation)
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
+    
+def display_opening():
+    cv2.imshow('Opening',opening)
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
+
+def display_closing():
+    cv2.imshow('Closing',closing)
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()

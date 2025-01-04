@@ -7,12 +7,14 @@
 # by Kesheng Wu, Ekow Otoo, and Kenji Suzuki
 #
 
-from PIL import Image, ImageDraw
+from PIL import Image, ImageDraw, ImageTk
 
 import sys
 import math, random
 from itertools import product
 # from ufarray import *
+
+import tkinter as tk
 
 
 # Array based union find data structure
@@ -192,11 +194,36 @@ def run(img):
         outdata[x, y] = colors[component]
 
     return (labels, output_img)
+
+def display_image(img):
+    # Resize the image to fit within a smaller fixed window size
+    max_size = (500, 500)  # Adjust the size as needed
+    img_resized = img.resize(max_size, Image.Resampling.LANCZOS)
+
+    # Create a tkinter window
+    root = tk.Tk()
+    root.title("Processed Image")
+
+    # Set the fixed window size
+    root.geometry(f"{max_size[0]}x{max_size[1]}")
+    root.resizable(False, False)
+
+    # Convert the PIL image to a format tkinter can display
+    img_tk = ImageTk.PhotoImage(img_resized)
+
+    # Create a label to display the image
+    label = tk.Label(root, image=img_tk)
+    label.image = img_tk  # Keep a reference to avoid garbage collection
+    label.pack()
+
+    # Run the tkinter main loop
+    root.mainloop()
+
  
 def main():
     # Open the image
     # img = Image.open(sys.argv[1])
-    img = Image.open('test_input_image.png')
+    img = Image.open('binary3.png')
 
     # Threshold the image, this implementation is designed to process b+w
     # images only
@@ -212,7 +239,8 @@ def main():
     # output_image is just a frivolous way to visualize the components.
     (labels, output_img) = run(img)
 
-    output_img.show()
+    # output_img.show()
+    display_image(output_img)
 
 if __name__ == "__main__": main()
 
